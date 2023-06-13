@@ -12,9 +12,9 @@ class Tree
   end
 
   def build_tree(array)
-    root_node = Node.new(array.sort![0])
+    root_node = Node.new(array.sort[array.length / 2])
     array.shift
-    array = array.uniq
+    p array = array.uniq
     # TODO: assign next nodes
     array.each { |value| insert(value, root_node) }
     # TODO: tree = stringify node
@@ -27,7 +27,7 @@ class Tree
     # TODO: bigger or smaller than root?
     loop do
       break if current_data == value
-      
+
       if current_data >= value && current_node.left.nil?
         current_node.left = Node.new(value)
         break
@@ -55,7 +55,6 @@ class Tree
     next_left = current_node.left
     next_right = current_node.right
 
-    
     loop do
       break if value == current_node.data
 
@@ -64,8 +63,10 @@ class Tree
     [previous_node, current_node, next_left, next_right]
   end
 
-  def delete
-  
+  def delete(value)
+    target_array = find(value)
+
+
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -92,7 +93,8 @@ class Tree
 end
 
 def driver_script
-  test_tree = Tree.new((Array.new(15) { rand(1..100) }))
+  p array = (Array.new(11) { rand(1..100) })
+  test_tree = Tree.new(array)
   test_tree.insert(rand(1..100))
   test_tree.pretty_print
 end
