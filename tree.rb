@@ -46,23 +46,28 @@ class Tree
   end
 
   def find(value, current_node = @root)
-    # TODO: Create queue to track through depth
-    queue = Array.new
+    stack = Array.new
     previous_node = nil
     next_left = current_node.left
     next_right = current_node.right
 
     loop do
-      break if value == current_node.data
+      if value == current_node.data
+        next_left = current_node.left
+        next_right = current_node.right
+        break
+      end
 
-      # TODO: how to recursively loop through untraversed branches...
+      stack << current_node.left unless current_node.left.nil?
+      stack << current_node.right unless current_node.right.nil?
+      previous_node = current_node
+      current_node = stack.pop
     end
     [previous_node, current_node, next_left, next_right]
   end
 
   def delete(value)
     target_array = find(value)
-
 
   end
 
@@ -92,7 +97,9 @@ end
 def driver_script
   p array = (Array.new(11) { rand(1..100) })
   test_tree = Tree.new(array)
-  test_tree.insert(rand(1..100))
+  test_tree.insert(rand(1..100)) # Insert a random number to tree
+  test_tree.find(array[rand(0..array.length)]) # Find a random node on the tree
+  # test_tree.delete(array[rand(1..array.length)]) # Remove a random node
   test_tree.pretty_print
 end
 
