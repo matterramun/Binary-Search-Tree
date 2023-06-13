@@ -24,7 +24,6 @@ class Tree
   def insert(value, root_node = @root)
     current_node = root_node
     current_data = current_node.data
-    # TODO: bigger or smaller than root?
     loop do
       break if current_data == value
 
@@ -44,8 +43,6 @@ class Tree
         next
       end
     end
-    # TODO: If smaller, if left_node != nil, traverse to left_note -> loop, else assign to left node
-    # TODO: If larger, if right_node != nil, traverse to right_node -> loop, else assign to right node
   end
 
   def find(value, current_node = @root)
