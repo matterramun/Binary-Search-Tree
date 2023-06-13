@@ -7,14 +7,12 @@ class Tree
 
   def initialize(array)
     @root = build_tree(array)
-    p @root
-    p @root.data
   end
 
   def build_tree(array)
     root_node = Node.new(array.sort[array.length / 2])
     array.shift
-    p array = array.uniq
+    array = array.uniq
     # TODO: assign next nodes
     array.each { |value| insert(value, root_node) }
     # TODO: tree = stringify node
@@ -46,7 +44,7 @@ class Tree
   end
 
   def find(value, current_node = @root)
-    stack = Array.new
+    stack = []
     previous_node = nil
     next_left = current_node.left
     next_right = current_node.right
@@ -68,7 +66,9 @@ class Tree
 
   def delete(value)
     target_array = find(value)
-
+    target_array.each {|x| puts x.data unless x.nil?}
+    target_array[0].left = target_array[2] unless target_array[2].nil?
+    target_array[0].right = target_array[3] unless target_array[3].nil?
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -98,8 +98,9 @@ def driver_script
   p array = (Array.new(11) { rand(1..100) })
   test_tree = Tree.new(array)
   test_tree.insert(rand(1..100)) # Insert a random number to tree
-  test_tree.find(array[rand(0..array.length)]) # Find a random node on the tree
-  # test_tree.delete(array[rand(1..array.length)]) # Remove a random node
+  test_tree.pretty_print
+  test_tree.find(array[rand(0..array.length - 1)]) # Find a random node on the tree
+  test_tree.delete(array[rand(1..array.length - 1)]) # Remove a random node
   test_tree.pretty_print
 end
 
