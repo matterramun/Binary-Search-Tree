@@ -40,7 +40,7 @@ class Tree
         current_node = current_node.left
         current_data = current_node.data
         next
-      elsif current_data == value && !current_node.right.nil?
+      elsif current_data <= value && !current_node.right.nil?
         current_node = current_node.right
         current_data = current_node.data
         next
@@ -52,15 +52,10 @@ class Tree
 
   def delete; end
 
-  def pretty_print(node = @root, prefix = '', is_left: true)
+  def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
-  end
-
-  def to_s(depth)
-    # TODO: Read node, append to string
-    # TODO: traverse left node, append to string
   end
 
   def balanced?; end
@@ -80,6 +75,6 @@ class Tree
   def depth; end
 end
 
-test_tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-test_tree.insert(5)
+test_tree = Tree.new((Array.new(15) { rand(1..100) }))
+test_tree.insert(rand(1..100))
 test_tree.pretty_print
