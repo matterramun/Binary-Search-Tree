@@ -27,9 +27,7 @@ class Tree
     # TODO: bigger or smaller than root?
     loop do
       break if current_data == value
-
-      p "node #{current_node}"
-      p "data #{current_data}"
+      
       if current_data >= value && current_node.left.nil?
         current_node.left = Node.new(value)
         break
@@ -50,7 +48,25 @@ class Tree
     # TODO: If larger, if right_node != nil, traverse to right_node -> loop, else assign to right node
   end
 
-  def delete; end
+  def find(value, current_node = @root)
+    # TODO: Create queue to track through depth
+    queue = Array.new
+    previous_node = nil
+    next_left = current_node.left
+    next_right = current_node.right
+
+    
+    loop do
+      break if value == current_node.data
+
+      # TODO: how to recursively loop through untraversed branches...
+    end
+    [previous_node, current_node, next_left, next_right]
+  end
+
+  def delete
+  
+  end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
@@ -75,6 +91,10 @@ class Tree
   def depth; end
 end
 
-test_tree = Tree.new((Array.new(15) { rand(1..100) }))
-test_tree.insert(rand(1..100))
-test_tree.pretty_print
+def driver_script
+  test_tree = Tree.new((Array.new(15) { rand(1..100) }))
+  test_tree.insert(rand(1..100))
+  test_tree.pretty_print
+end
+
+driver_script
