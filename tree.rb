@@ -13,9 +13,7 @@ class Tree
     root_node = Node.new(array.sort[array.length / 2])
     array.shift
     array = array.uniq
-    # TODO: assign next nodes
     array.each { |value| insert(value, root_node) }
-    # TODO: tree = stringify node
     root_node
   end
 
@@ -66,7 +64,9 @@ class Tree
 
   def delete(value)
     target_array = find(value)
-    target_array.each {|x| puts x.data unless x.nil?}
+    puts value
+    p target_array.each {|node| node.data unless node.nil?}
+    target_array.each { |x| puts x.data unless x.nil? }
     target_array[0].left = target_array[2] unless target_array[2].nil?
     target_array[0].right = target_array[3] unless target_array[3].nil?
   end
@@ -77,7 +77,10 @@ class Tree
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 
-  def balanced?; end
+  def balanced?
+    left_branch = @root.left
+    right_branch = @root.right
+  end
 
   def rebalance; end
 
@@ -91,17 +94,25 @@ class Tree
 
   def height; end
 
-  def depth; end
+  def depth(node = @root, depth = 0)
+    p "node: #{node.data} depth: #{depth}"
+    return if node.left.nil? && node.right.nil?
+
+    depth += 1
+    depth(node.left, depth) unless node.left.nil?
+    depth(node.right, depth) unless node.right.nil?
+  end
 end
 
 def driver_script
-  p array = (Array.new(11) { rand(1..100) })
+  p array = (Array.new(30) { rand(1..100) })
   test_tree = Tree.new(array)
   test_tree.insert(rand(1..100)) # Insert a random number to tree
   test_tree.pretty_print
   test_tree.find(array[rand(0..array.length - 1)]) # Find a random node on the tree
-  test_tree.delete(array[rand(1..array.length - 1)]) # Remove a random node
+  test_tree.delete(array.sort[rand(1..array.length - 1)]) # Remove a random node
   test_tree.pretty_print
+  puts test_tree.depth
 end
 
 driver_script
